@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import MakePayment from "./components/MakePayment";
 import PaymentHistory from "./components/PaymentHistory";
 import PendingRequest from "./components/PendingRequest";
+import ProductCollectionHistory from "./components/ProductCollectionHistory";
 
 
 function App() {
@@ -13,7 +14,11 @@ function App() {
   const [isShown, setIsShown] = useState(false)
   const [showVerticalNav, setShowVerticalNav] = useState(false)
   const [activePage, setActivePage] = useState('');
+  const [showExportChildrenButton, setShowExportChildrenButton] = useState(false);
   const userRef = useRef();
+  const exportRef = useRef();
+  const pdfRef = useRef();
+  const excelRef = useRef()
 
   useEffect(() => {
     const path = window.location.pathname.split('/').filter(Boolean).pop() || '';
@@ -27,6 +32,9 @@ function App() {
   const handleAppClick = (e) => {
     if (isShown && !userRef.current.contains(e.target)) {
       setIsShown(false);
+    }
+    if (showExportChildrenButton && !exportRef.current.contains(e.target) && !pdfRef.current.contains(e.target) && !excelRef.current.contains(e.target)) {
+      setShowExportChildrenButton(false);
     }
   }
   const handleCoverClick = () => {
@@ -61,6 +69,7 @@ function App() {
             <Route path="/make-payment" element={<MakePayment />} />
             <Route path="/payment-history" element={<PaymentHistory />} />
             <Route path="/pending-request" element={<PendingRequest />} />
+            <Route path="/product-collection" element={<ProductCollectionHistory excelRef={excelRef} pdfRef={pdfRef} showExportChildrenButton={showExportChildrenButton} setShowExportChildrenButton={setShowExportChildrenButton} exportRef={exportRef} />} />
           </Routes>
         </div>
       </div>

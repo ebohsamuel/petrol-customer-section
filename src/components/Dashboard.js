@@ -9,6 +9,7 @@ function Dashboard({ setActivePage }) {
     });
     const [recentCollection, setRecentCollection] = useState([]);
     const makePayment = () => setActivePage('make-payment');
+    const ProductCollectionHistory = () => setActivePage('product-collection');
     useEffect(() => {
         const walletBalance = 25000;
         const lastPayment = {
@@ -48,7 +49,7 @@ function Dashboard({ setActivePage }) {
                 {/* sam breaking point is for min width of 540px */}
                 <div className='space-y-2 sam:space-x-2 lg:space-x-4'>
                     <button onClick={makePayment} className='bg-gray-900 text-white hover:bg-gray-600 py-2 px-8 rounded-lg shadow-lg inline-block'><Link to="/Make-Payment">Make Payment</Link></button>
-                    <button className='bg-gray-900 text-white hover:bg-gray-600 py-2 px-8 rounded-lg shadow-lg inline-block'>View Collection History</button>
+                    <button onClick={ProductCollectionHistory} className='bg-gray-900 text-white hover:bg-gray-600 py-2 px-8 rounded-lg shadow-lg inline-block'><Link to="/product-collection">View Collection History</Link></button>
                 </div>
             </div>
         </div>
