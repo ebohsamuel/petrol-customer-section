@@ -7,6 +7,7 @@ import MakePayment from "./components/MakePayment";
 import PaymentHistory from "./components/PaymentHistory";
 import PendingRequest from "./components/PendingRequest";
 import ProductCollectionHistory from "./components/ProductCollectionHistory";
+import AccountSettings from "./components/AccountSettings";
 
 
 function App() {
@@ -22,8 +23,11 @@ function App() {
 
   useEffect(() => {
     const path = window.location.pathname.split('/').filter(Boolean).pop() || '';
-    if (['', 'make-payment', 'payment-history', 'product-collection',].includes(path)) {
+    if (['', 'make-payment', 'payment-history', 'product-collection','pending-request',].includes(path)) {
       setActivePage(path);
+    }
+    if (path === 'account-setting') {
+      setActivePage(null)
     }
   }, []);
 
@@ -51,15 +55,15 @@ function App() {
           <VerticalNavigation setActivePage={setActivePage} activePage={activePage} />
         </div>
         {/* Mobile sidebar (slide-in, controlled by showVerticalNav) */}
-        <div className={`fixed top-0 ${showVerticalNav? 'left-0':'-left-full'} w-[250px] h-screen z-50 md:hidden transition-left duration-300 ease-in-out`}>
+        <div className={`fixed top-0 ${showVerticalNav? 'left-0':'-left-full'} w-[250px] h-screen z-30 md:hidden transition-left duration-300 ease-in-out`}>
           <VerticalNavigation setActivePage={setActivePage} activePage={activePage} />
         </div>
         {/* Mobile sidebar cover (slide-in, controlled by showVerticalNav) */}
-        <div onClick={handleCoverClick} className={`fixed top-0 ${showVerticalNav? 'left-0':'-left-full'} w-screen h-screen z-40 bg-gray-500 md:hidden opacity-60 transition-left duration-300 ease-in-out`}></div>
+        <div onClick={handleCoverClick} className={`fixed top-0 ${showVerticalNav? 'left-0':'-left-full'} w-screen h-screen z-20 bg-gray-500 md:hidden opacity-60 transition-left duration-300 ease-in-out`}></div>
 
         {/* Top Bar */}
         <div className="row-start-1 col-span-2 lg:col-span-3 bg-gray-200 flex justify-between items-center relative">
-          <UserMenu userRef={userRef} setIsShown={setIsShown} isShown={isShown} setShowVerticalNav={setShowVerticalNav} />
+          <UserMenu setActivePage={setActivePage} userRef={userRef} setIsShown={setIsShown} isShown={isShown} setShowVerticalNav={setShowVerticalNav} />
         </div>
 
         {/* Main Content */}
@@ -69,6 +73,7 @@ function App() {
             <Route path="/make-payment" element={<MakePayment />} />
             <Route path="/payment-history" element={<PaymentHistory />} />
             <Route path="/pending-request" element={<PendingRequest />} />
+            <Route path="/account-setting" element={<AccountSettings />} />
             <Route path="/product-collection" element={<ProductCollectionHistory excelRef={excelRef} pdfRef={pdfRef} showExportChildrenButton={showExportChildrenButton} setShowExportChildrenButton={setShowExportChildrenButton} exportRef={exportRef} />} />
           </Routes>
         </div>

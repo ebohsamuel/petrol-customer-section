@@ -13,6 +13,7 @@ module.exports = {
       },
       screens: {
         'sam': '540px',
+        'sam-md': '412px',
       },
     },
   },
